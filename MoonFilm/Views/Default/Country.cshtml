@@ -1,0 +1,22 @@
+@model List<Country>
+@{
+    ViewData["Title"] = "Country";
+}
+<h1>Countries</h1>
+<hr>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <img src="~/Images/@(item.CountryImage).jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@item.CountryName</h5>
+                    <a asp-controller="Default" asp-action="Country_Films" asp-route-id="@item.CountryId" class="btn btn-sm-primary">See the Films</a>
+                    <a asp-controller="Default" asp-action="Country_Actors" asp-route-id="@item.CountryId" class="btn btn-sm-primary">See the Actors</a>
+                    <a asp-controller="Default" asp-action="Country_Directors" asp-route-id="@item.CountryId" class="btn btn-sm-primary">See the Directors</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

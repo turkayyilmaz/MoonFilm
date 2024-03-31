@@ -1,0 +1,34 @@
+@model List<Actor>
+@{
+    ViewData["Title"] = "Country_Actors";
+}
+<div class="row">
+    @if (Model == null || Model.Count == 0)
+    {
+        <h1>There is not result.</h1>
+    }
+    @foreach (var item in Model)
+    {
+        <div class="col-3">
+
+            <div class="card" style="width: 18rem;">
+                <img src="~/Images/@(item.ImageUrl).jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    @{
+                        string Name = item.ActorFullName.Length > 15 ? item.ActorFullName.Substring(0, 15) + "..." :
+                        item.ActorFullName;
+                    }
+                    <h5 class="card-title">@Name</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad unde impedit
+                        repudiandae?</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Birth: @item.DateTime</li>
+                    <li class="list-group-item">Country: @item.Country.CountryName <img style="width: 15%;"
+                            class="card-img-top rounded" src="~/Images/@(item.Country.CountryImage).jpg"></li>
+                </ul>
+
+            </div>
+        </div>
+    }
+</div>

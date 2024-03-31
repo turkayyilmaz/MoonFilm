@@ -1,0 +1,48 @@
+@model List<Film>
+@{
+    ViewData["Title"] = "Film";
+}
+<h1>Films</h1>
+<hr>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <img src="~/Images/@(item.CoverImageUrl).jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    @{
+                        string Name = item.FilmName.Length > 15 ? item.FilmName.Substring(0, 15) + "..." :
+                        item.FilmName;
+                    }
+                    <h5 class="card-title">@Name</h5>
+
+                    <p class="card-text">Year: @item.Year<br>Country: @item.Country.CountryName<br>Genre:
+                    <!--Çok önemli! kartın kaymaması için sadece ilk iki category getirdik-->
+                        @{
+                            int min = 0; //bunları foreachın içine yazsaydın döngü her başa döndüğünde min sıfırlanacaktı xd
+                            int max = 2;
+                            string cList = "";
+                        }
+                        @foreach (var genres in item.Categories)
+                        {
+                            if(min < max)
+                            {
+                                cList += genres.CategoryName;
+                                min++; 
+                                if(min < max)
+                                {
+                                    cList += ", ";
+                                }
+                            }
+                            else{
+                                break; //max kategori sayısı geçildiyse çık döngüden
+                            }
+                        }@cList</p>
+                    <a asp-controller="Default" asp-action="FilmDetail" asp-route-id="@item.FilmId"
+                        class="btn btn-primary">See More...</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

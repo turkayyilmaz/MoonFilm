@@ -1,0 +1,59 @@
+@model Film
+@{
+    ViewData["Title"] = "FilmDetail";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="~/Images/@(Model.CoverImageUrl).jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.FilmName</h5>
+                    <p class="card-text">@Model.Description</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Director: @Model.Director.DirectorFullName</li>
+                    <li class="list-group-item">IMDb: @Model.IMDb</li>
+                    <li class="list-group-item">Published: @Model.Year</li>
+                    @{string v = " ";}
+                    <li class="list-group-item">Category: @foreach(var item in Model.Categories){@item.CategoryName@v}</li>
+                    <li class="list-group-item">Country: @Model.Country.CountryName</li>
+                    <li class="list-group-item"><img class="card-img-top" src="~/Images/@(Model.Country.CountryImage).jpg">
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-9">
+            <h1>@Model.FilmName Trailer</h1>
+
+            <iframe width="917" height="516" src="@Model.Url"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Poster</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var items in @ViewBag.Films)
+                    {
+                        <tr>
+                            <td class="col" style="width: 100px;"><img style="width: 100px;" class="img" src="~/Images/@(items.ImageUrl).jpg">
+                            </td>
+                            <td style="width: 700px;">@items.ActorFullName <br>
+                                <hr style="color: gray;"> <span style="color:gray;">@items.ActorDescription</span>
+                            </td>
+
+                        </tr>
+                    }
+                  
+                </tbody>
+            </table>
+        </div>
+    </div>

@@ -1,0 +1,27 @@
+@model List<Actor>
+@{
+    ViewData["Title"] = "Actor";
+}
+<h1>Actors</h1>
+<hr>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <img src="~/Images/@(item.ImageUrl).jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    @{
+                        string Name = item.ActorFullName.Length > 15 ? item.ActorFullName.Substring(0, 15) + "..." :
+                        item.ActorFullName;
+                    }
+                    <h5 class="card-title">@Name</h5>
+                    <p class="card-text">Birth: @item.DateTime.ToString("yyyy.MM.dd") Country: @item.Country.CountryName
+                    </p>
+                    <a asp-controller="Default" asp-action="ActorDetail" asp-route-id="@item.ActorId"
+                        class="btn btn-primary">See the Projects</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

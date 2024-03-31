@@ -1,0 +1,50 @@
+@model Director
+@{
+    ViewData["Title"] = "Director";
+}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="~/Images/@(Model.DirectorImage).jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.DirectorFullName</h5>
+                    <p class="card-text">director description</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Birth: @Model.DateTime.ToString("yyyy-MM-dd")</li>
+                    @{
+                        var year = int.Parse(@Model.DateTime.ToString("yyyy"));
+                        int age = DateTime.Now.Year - year;
+                    }
+                    <li class="list-group-item">Age: @age</li>
+                    <li class="list-group-item">Country: @Model.Country.CountryName</li>
+                    <li class="list-group-item"><img class="card-img-top" src="~/Images/@(Model.Country.CountryImage).jpg">
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-9">
+            <h1>@Model.DirectorFullName's Projects</h1>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Poster</th>
+                        <th>Name</th>
+                        <th>IMDb</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var items in @ViewBag.Films)
+                    {
+                        <tr>
+                            <td class="col" style="width: 100px;"><img style="width: 100px;" class="img" src="~/Images/@(items.CoverImageUrl).jpg" ></td>
+                            <td style="width: 700px;">@items.FilmName <br><hr style="color: gray;"> <span style="color:gray;">@items.Description</span></td>
+                            <td>&#9733; @items.IMDb</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
